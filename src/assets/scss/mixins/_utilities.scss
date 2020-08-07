@@ -1,0 +1,149 @@
+@mixin flex($justify-content, $align-items) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+.u-d-block {
+  display: block;
+}
+
+.u-text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &--lg {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;      // 想顯示的行數 
+    -webkit-box-orient: vertical;
+    // line-height: n;       //解決 Firefox 不支援 -webkit-line-clamp 的問題
+    // max-height: n*N;      //解決 Firefox 不支援 -webkit-line-clamp 的問題
+  }
+}
+
+.u-fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+}
+
+.u-fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.u-absolute-0 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.u-pr-0 {
+  padding-right: 0;
+}
+
+.u-px-15 {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.u-pl-15 {
+  padding-left: 15px;
+}
+
+.u-pb-lg {
+  padding-bottom: 73px + 15px + 48px;
+}
+
+.u-mt-20 {
+  margin-top: 20px;
+}
+
+.u-mb-16 {
+  margin-bottom: 16px;
+}
+
+.u-mb-20 {
+  margin-bottom: 20px;
+}
+
+.u-mb-21 {
+  margin-bottom: 21px;
+}
+
+.u-mb-30 {
+  margin-bottom: 30px;
+}
+
+.u-scroll-y {
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.u-scroll-x {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.u-scroll-hidden {
+  overflow: hidden;
+}
+
+.u-w-100 {
+  width: 100%;
+}
+
+.u-h-100 {
+  height: 100%;
+}
+
+.u-h-min-100 {
+  min-height: 100%;
+}
+
+.u-bg-second-light {
+  background-color: $second-light-bg;
+}
+
+.u-d-flex {
+  display: flex;
+}
+
+.u-flex-column {
+  flex-direction: column;
+}
+
+.u-justify-content-between {
+  justify-content: space-between;
+}
+
+.u-align-items-center {
+  align-items: center;
+}
+
+.u-align-items-stretch {
+  align-items: stretch;
+}
+
+.u-text-center {
+  text-align: center;
+}
+
+// .u-border-circle {
+//   border-radius: 50%;
+// }

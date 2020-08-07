@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  font: inherit;
+  color: inherit;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  color: $base-dark-text;
+  background-color: $base-light-bg;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
+main {
+  height: 100%;
+  padding-bottom: $pb-normal;
+  overflow: auto;
+}

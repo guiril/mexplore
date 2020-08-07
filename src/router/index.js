@@ -1,27 +1,58 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+// import store from '@/store';
+
 import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '*',
+    redirect: '/',
+  },
+  {
     path: '/',
     name: 'Home',
     component: Home,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue'),
+  },
+  {
+    path: '/search',
+    component: () => import('../views/Search/Search.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Search',
+        component: () => import('../views/Search/SearchDefault.vue'),
+      },
+      {
+        path: ':q/:type',
+        name: 'SearchType',
+        component: () => import('../views/Search/SearchType.vue'),
+      },
+    ],
+  },
+  {
+    path: '/my-music',
+    name: 'MyMusic',
+    component: () => import('../views/MyMusic.vue'),
+  },
+  {
+    path: '/playlist',
+    name: 'Playlist',
+    component: () => import('../views/Playlist.vue'),
   },
 ];
 
 const router = new VueRouter({
   routes,
+  mode: 'history',
+  linkActiveClass: 'navbarMenu__item--active',
 });
 
 export default router;

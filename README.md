@@ -1,24 +1,8 @@
-# music-player-vue
+# MExplore Music Player with Spotify
 
-## Project setup
-```
-npm install
-```
+串接 Spotify Open API 製作音樂播放器。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+[Spotify Web API](https://developer.spotify.com/documentation/web-api/)
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* 使用 Vue CLI
+* HTML + SCSS
