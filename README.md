@@ -1,6 +1,6 @@
 # MExplore
 
-串接音樂串流平台 Spotify Open API 製作音樂播放器。
+串接音樂串流平台 Spotify Open API 製作音樂播放器。（未完成，進行中）
 
 > Spotify Web API https://developer.spotify.com/documentation/web-api/
 
