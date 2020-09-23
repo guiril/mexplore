@@ -9,6 +9,6 @@
 
 ## 主要練習技術
 
-* 使用 Vue.js（） 製作音樂播放器。
+* 使用 Vue.js（Vue CLI） 製作音樂播放器。
 * 使用 AJAX 串接第三方 API，並以 Axios 管理 API。
 * 利用 Node.js 管理驗證部分的程式碼，並上傳至 Heroku。
