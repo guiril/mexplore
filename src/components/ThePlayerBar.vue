@@ -37,7 +37,7 @@
             @click.prevent="controlPlayerStatus('play')"
           >
             <img
-              :src="`./static/images/${playerImgSrc}.svg`"
+              :src="`./static/images/player/${playerImgSrc}.svg`"
               alt=""
             >
           </button>
@@ -46,7 +46,7 @@
             @click.prevent="controlPlayerStatus('stop')"
           >
             <img
-              src="@/assets/images/player-stop.svg"
+              src="@/assets/images/player/stop.svg"
               alt="Stop playing music"
             >
           </button>
@@ -91,10 +91,10 @@ export default {
       // 變換播放與暫停 icon
       switch (val) {
         case 'playing':
-          this.playerImgSrc = 'player-pause';
+          this.playerImgSrc = 'pause';
           break;
         case 'pause':
-          this.playerImgSrc = 'player-playing';
+          this.playerImgSrc = 'playing';
           break;
         default:
           break;
@@ -127,10 +127,16 @@ export default {
       this.audio.play();
     },
     controlPlayerStatus(status) {
+      const playPromise = this.audio.play();
+
       if (status === 'play') {
         if (this.playerStatus === 'playing') {
-          this.setPlayerStatus('pause');
-          this.audio.pause();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              this.setPlayerStatus('pause');
+              this.audio.pause();
+            });
+          }
         } else if (this.playerStatus === 'pause') {
           this.setPlayerStatus('playing');
           this.audio.play();

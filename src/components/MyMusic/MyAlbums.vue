@@ -95,12 +95,23 @@ export default {
   },
   data() {
     return {
+      bottom: false,
       items: [],
       removeItem: {},
     };
   },
+  watch: {
+    bottom(val) {
+      if (val) {
+        this.getAlbums();
+      }
+    },
+  },
   created() {
     this.getAlbums();
+    window.addEventListener('scroll', () => {
+      this.bottom = this.bottomVisible();
+    });
   },
   methods: {
     async getAlbums() {
@@ -119,6 +130,15 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+    bottomVisible() {
+      const { scrollY } = window; // viewport（視圖）最上方的 Y 座標
+      const visible = document.documentElement.clientHeight; // 元素的內部高度，包含 padding
+      const pageHeight = document.documentElement.scrollHeight; // 元素內容的高度，包含不可見的部分
+      const bottomOfPage = visible + scrollY >= pageHeight;
+      // console.log(visible + scrollY, pageHeight);
+      return bottomOfPage;
+      // return bottomOfPage || pageHeight < visible;
     },
     removeAlbum(item) {
       this.removeItem = item;

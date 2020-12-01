@@ -57,6 +57,9 @@ export default {
     HomeCard7,
     HomeCard8,
   },
+  // created() {
+  //   this.$router.push('my-music');
+  // },
 };
 </script>
 

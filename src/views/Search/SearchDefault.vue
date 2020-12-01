@@ -2,7 +2,12 @@
   <div class="content u-d-flex u-flex-column u-pb">
     <div class="u-d-flex u-justify-content-between u-align-items-stretch u-px-15">
       <div class="search">
-        <div class="search__img" />
+        <div class="search__img">
+          <img
+            src="/static/images/search.svg"
+            alt=""
+          >
+        </div>
         <input
           v-model="searchText"
           v-focus
@@ -14,7 +19,12 @@
         <button
           class="search__clearInput"
           @click="clearSearchText"
-        />
+        >
+          <img
+            src="/static/images/cancel.svg"
+            alt=""
+          >
+        </button>
       </div>
       <div class="close">
         <button class="close__btn u-text-center">
@@ -111,8 +121,13 @@ export default {
       this.searchText = '';
     },
     playtracks(index) {
-      this.$store.dispatch('playquee/setPlayquee', [this.data.tracks[index]]);
-      this.$store.dispatch('playquee/setNowplaying', 0);
+      if (!this.data.tracks[index].preview_url) {
+        console.log('無法試聽');
+      } else {
+        this.$store.dispatch('playquee/setPlayquee', this.data.tracks);
+        this.$store.dispatch('playquee/setNowplaying', index);
+        this.$store.dispatch('playquee/setPlayerStatus', 'playing');
+      }
     },
     setLocalStorage() {
       localStorage.setItem('search-history', JSON.stringify(this.searchHistory));
@@ -166,7 +181,7 @@ export default {
     width: 14px;
     height: 14px;
     @include absolute(calc((100% - 14px) / 2), null, null, 15px);
-    background-color: #000;
+    // background-color: #000;
   }
   &__input {
     width: 100%;
@@ -191,8 +206,8 @@ export default {
     height: 14px;
     @include absolute(calc((100% - 14px) / 2), 7px, null, null,);
     z-index: 3;
-    border-radius: 50%;
-    background-color: #000;
+    // border-radius: 50%;
+    // background-color: #000;
   }
 }
 

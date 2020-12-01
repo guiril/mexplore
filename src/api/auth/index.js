@@ -1,6 +1,9 @@
 import request from './request';
 
 export default {
+  getAuthUri() {
+    return request.instance.get('login');
+  },
   getClientToken() {
     return request.instance.get('client');
   },

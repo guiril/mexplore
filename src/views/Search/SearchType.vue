@@ -10,62 +10,113 @@
       </button>
     </div>
     <ul class="list list--striped">
-      <li
-        v-for="item in items"
-        :key="item.id"
-        class="list__item u-px-15"
-      >
-        <a
-          href="#"
-          class="list__link"
+      <template v-if="dataType === 'tracks'">
+        <li
+          v-for="(item, index) in items"
+          :key="item.id"
+          class="list__item u-px-15"
         >
-          <img
-            v-if="dataType === 'tracks'"
-            :src="item.album.images[0].url"
-            :alt="item.name"
-            class="list__img"
+          <a
+            href="#"
+            class="list__link"
+            @click.prevent="playtracks(index)"
           >
-          <img
-            v-else
-            :src="item.images[0].url"
-            :alt="item.name"
-            class="list__img"
-            :class="{ 'list__img--border-circle': dataType === 'artists'}"
-          >
-          <div class="list__body">
-            <span class="list__title u-d-block u-text-ellipsis">{{ item.name }}</span>
-          </div>
-          <span
-            v-if="dataType === 'tracks'"
+            <img
+              :src="item.album.images[0].url"
+              :alt="item.name"
+              class="list__img"
+            >
+            <div class="list__body">
+              <span class="list__title u-text-ellipsis">{{ item.name }}</span>
+            </div>
+          </a>
+          <button
             class="list__btn"
+            @click.prevent="openTrackModal(item)"
           >
             ...
-          </span>
-          <span
-            v-else
-            class="list__btn"
+          </button>
+        </li>
+      </template>
+      <template v-else>
+        <li
+          v-for="item in items"
+          :key="item.id"
+          class="list__item u-px-15"
+        >
+          <a
+            href="javascript:void(0)"
+            class="list__link"
           >
+            <img
+              :src="item.images[0].url"
+              :alt="item.name"
+              class="list__img"
+              :class="{ 'list__img--border-circle': dataType === 'artists'}"
             >
-          </span>
-
-        </a>
-      </li>
+            <div class="list__body">
+              <span class="list__title u-text-ellipsis">{{ item.name }}</span>
+            </div>
+            <span class="list__btn">
+              >
+            </span>
+          </a>
+        </li>
+      </template>
     </ul>
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animate__animated animate__fadeInUp animate__fast"
+      leave-active-class="animate__animated animate__fadeOutDown animate__fast"
+    >
+      <ModalTrack
+        v-if="isModalTrackOpen"
+        :track="track"
+        @closeModal="closeTrackModal"
+      />
+    </transition>
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animate__animated animate__fadeInUp animate__fast"
+      leave-active-class="animate__animated animate__fadeOutDown animate__fast"
+    >
+      <ModalTrackAddto
+        v-if="isModalTrackAddtoOpen"
+        @closeTrackAddto="isModalTrackAddtoOpen = false"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
 import search from '@/api/search';
+import ModalTrack from '@/components/Modal/ModalTrack.vue';
+import ModalTrackAddto from '@/components/Modal/ModalTrackAddto.vue';
 
 export default {
   name: 'SearchType',
+  components: {
+    ModalTrack,
+    ModalTrackAddto,
+  },
   data() {
     return {
       q: null,
       type: null,
       dataType: null,
       items: [],
+      track: {},
+      isModalTrackOpen: false,
+      isModalTrackAddtoOpen: false,
     };
+  },
+  watch: {
+    isModalTrackOpen(val) {
+      this.$store.dispatch('setModalStatus', val);
+    },
+    isModalTrackAddtoOpen(val) {
+      this.$store.dispatch('setModalStatus', val);
+    },
   },
   mounted() {
     const { type } = this.$route.params;
@@ -90,7 +141,6 @@ export default {
         break;
     }
     this.q = this.$route.params.q;
-    console.log(this.$route.params);
     this.getSearch();
   },
   methods: {
@@ -105,6 +155,23 @@ export default {
           vm.items = res.data[vm.dataType].items;
           // console.log(vm.dataType);
         });
+    },
+    playtracks(index) {
+      if (!this.items[index].preview_url) {
+        console.log('無法試聽');
+      } else {
+        this.$store.dispatch('playquee/setPlayquee', this.items);
+        this.$store.dispatch('playquee/setNowplaying', index);
+        this.$store.dispatch('playquee/setPlayerStatus', 'playing');
+      }
+    },
+    openTrackModal(item) {
+      this.track = item;
+      this.isModalTrackOpen = true;
+    },
+    closeTrackModal(emit) {
+      this.isModalTrackAddtoOpen = emit;
+      this.isModalTrackOpen = false;
     },
   },
 };

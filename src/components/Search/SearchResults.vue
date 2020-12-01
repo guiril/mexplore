@@ -6,7 +6,7 @@
         v-for="item in data.artists"
         :key="item.id"
         class="list__item u-px-15"
-        @click.prevent="$emit('setSearchHistory', item)"
+        @click.prevent="$emit('set-search-history', item)"
       >
         <a
           href="javascript:void(0)"
@@ -32,7 +32,7 @@
         v-for="item in data.albums"
         :key="item.id"
         class="list__item u-px-15"
-        @click.prevent="$emit('setSearchHistory', item)"
+        @click.prevent="$emit('set-search-history', item)"
       >
         <a
           href="javascript:void(0)"
@@ -58,7 +58,7 @@
         v-for="item in data.playlists"
         :key="item.id"
         class="list__item u-px-15"
-        @click.prevent="$emit('setSearchHistory', item)"
+        @click.prevent="$emit('set-search-history', item)"
       >
         <a
           href="javascript:void(0)"
@@ -84,7 +84,7 @@
         v-for="(item, index) in data.tracks"
         :key="item.id"
         class="list__item u-px-15"
-        @click.prevent="$emit('setSearchHistory', item)"
+        @click.prevent="$emit('set-search-history', item)"
       >
         <a
           href="#"

@@ -5,27 +5,27 @@
     </h3>
     <ul class="singleList u-scroll-x">
       <li
-        v-for="(item, index) in filteredAmountOfTracks"
-        :key="item.id"
+        v-for="(track, index) in tracks"
+        :key="track.id"
         class="singleList__item"
-        @click.prevent="playtracks(index)"
+        @click.prevent="playtracks(track.id, index)"
       >
         <div class="singleList__left">
           <span class="singleList__order u-d-block">{{ index + 1 }}</span>
         </div>
         <div class="singleList__center">
           <img
-            :src="item.album.images[0].url"
+            :src="track.album.images[0].url"
             alt=""
             class="singleList__img"
           >
         </div>
         <div class="singleList__right">
           <span class="singleList__title u-d-block u-text-ellipsis">
-            {{ item.name }}
+            {{ track.name }}
           </span>
           <span class="singleList__text u-d-block u-text-ellipsis">
-            {{ item.artists | formatArtist }}
+            {{ track.artists | formatArtist }}
           </span>
         </div>
       </li>
@@ -45,7 +45,7 @@ export default {
     };
   },
   computed: {
-    filteredAmountOfTracks() {
+    tracks() {
       // 隨機選 12 首歌
       // const originAry = this.items;
       // const copyOrigAry = originAry.map((el) => el);
@@ -87,15 +87,24 @@ export default {
         console.log(e);
       }
     },
-    playtracks(index) {
-      if (!this.items[index].track.preview_url) {
-        console.log('無法試聽');
-      } else {
-        this.$store.dispatch('playquee/setPlayquee', this.filteredAmountOfTracks);
-        this.$store.dispatch('playquee/setNowplaying', index);
-        this.$store.dispatch('playquee/setPlayerStatus', 'playing');
-      }
+    playtracks(id, index) {
+      this.$store.dispatch('playquee/setNowPlaying', {
+        id,
+        index,
+      });
+      this.$store.dispatch('playquee/setPlayerStatus', 'playing');
     },
+    // playtracks(index, id) {
+    //   if (!this.items[index].track.preview_url) {
+    //     console.log('無法試聽');
+    //   } else {
+    //     this.$store.dispatch('playquee/setPlayquee', this.filteredAmountOfTracks);
+    //     this.$store.dispatch('playquee/setNowplaying', {
+    //       index, id,
+    //     });
+    //     this.$store.dispatch('playquee/setPlayerStatus', 'playing');
+    //   }
+    // },
   },
 };
 </script>

@@ -9,7 +9,7 @@
           新生代嘻哈新人！抖音平台而大紅大紫的歌手，絕非蜜桃貓朵佳（Doja Cat）
         </h3>
         <img
-          src="https://picsum.photos/290/194"
+          src="@/assets/images/home/banner/01.png"
           alt=""
           class="carouselList__img"
         >

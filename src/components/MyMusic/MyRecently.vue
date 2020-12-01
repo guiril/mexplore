@@ -77,6 +77,7 @@ export default {
   },
   data() {
     return {
+      bottom: false,
       tracks: {
         items: [],
       },
@@ -101,9 +102,17 @@ export default {
     isModalTrackAddtoOpen(val) {
       this.$store.dispatch('setModalStatus', val);
     },
+    bottom(val) {
+      if (val) {
+        this.getCurrentlyPlayed();
+      }
+    },
   },
   created() {
     this.getCurrentlyPlayed();
+    window.addEventListener('scroll', () => {
+      this.bottom = this.bottomVisible();
+    });
   },
   methods: {
     async getCurrentlyPlayed() {
@@ -113,6 +122,15 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+    bottomVisible() {
+      const { scrollY } = window; // viewport（視圖）最上方的 Y 座標
+      const visible = document.documentElement.clientHeight; // 元素的內部高度，包含 padding
+      const pageHeight = document.documentElement.scrollHeight; // 元素內容的高度，包含不可見的部分
+      const bottomOfPage = visible + scrollY >= pageHeight;
+      // console.log(visible + scrollY, pageHeight);
+      return bottomOfPage;
+      // return bottomOfPage || pageHeight < visible;
     },
     playtracks(index) {
       if (!this.tracksAry[index].preview_url) {
